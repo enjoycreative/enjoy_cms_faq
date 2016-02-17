@@ -1,0 +1,7 @@
+- @questions.each do |q|
+  .question_block{data-question-id="#{q._id.to_s}"}
+    = render partial: "enjoy/faq/questions/question_block", locals: {q: q}
+
+.newquestionform
+  p.newquestiontitle Задать свой вопрос:
+  = render partial: "enjoy/faq/questions/new_question_form"

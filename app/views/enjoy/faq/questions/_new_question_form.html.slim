@@ -1,0 +1,29 @@
+- @question ||= Enjoy::Faq::Question.new
+- if @question.new_record?
+  = simple_form_for @question, url: enjoy_cms_faq.questions_path do |f|
+    - unless @message.blank?
+      h3= @message
+    .inputtextblock_q
+    
+      - label = Settings.ns('faq_form').author_name_label( default: "ФИО", label: "Заголовок поля ФИО")
+      = f.input :author_name, label: label
+      
+      - label = Settings.ns('faq_form').author_email_label( default: "E-mail", label: "Заголовок поля E-mail")
+      = f.input :author_email, as: :email, label: label
+      
+      - label = Settings.ns('faq_form').question_text_label( default: "Текст вопроса", label: "Заголовок поля Текст вопроса")
+      = f.input :question_text, as: :text, label: label
+      
+      
+      - if Enjoy::Faq.configuration.save_with_captcha
+        .question_captcha
+          - label = Settings.ns('faq_form').captcha_label( default: "Код проверки", label: "Заголовок поля Код проверки")
+          = f.simple_captcha label: label, required: true
+          - unless @question.errors[:captcha].blank?
+            span.error= @question.errors[:captcha].join("<br />").html_safe
+        
+      - label = Settings.ns('faq_form').submit_label( default: "Отправить", label: "Заголовок кнопки Отправить")
+      = f.button :submit, label
+- else
+  - unless @message.blank?
+    h3= @message
