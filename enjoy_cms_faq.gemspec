@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "enjoy_cms_faq"
   spec.version       = Enjoy::Faq::VERSION
   spec.authors       = ["Alexander Kiseliev"]
-  spec.email         = ["dev@enjpycreate.ru"]
+  spec.email         = ["dev@enjoycreate.ru"]
 
   spec.summary       = %q{FAQ system with EnjoyCMS support.}
   spec.description   = %q{FAQ system with EnjoyCMS support.}
