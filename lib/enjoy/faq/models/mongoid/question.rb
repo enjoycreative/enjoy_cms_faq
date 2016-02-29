@@ -7,6 +7,9 @@ module Enjoy::Faq
         include Enjoy::HtmlField
 
         included do
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
 
           field :question_text
           enjoy_cms_html_field :question_text_after_editing, localize: Enjoy.configuration.localize

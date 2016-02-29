@@ -7,6 +7,10 @@ module Enjoy::Faq
         include Enjoy::HtmlField
 
         included do
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
+          
           field :name,          type: String, localize: Enjoy.configuration.localize
 
           acts_as_nested_set
