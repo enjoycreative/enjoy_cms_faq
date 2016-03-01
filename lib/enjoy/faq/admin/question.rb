@@ -17,20 +17,24 @@ module Enjoy::Faq
             field :question_categories
             field :enabled, :toggle
 
-            field :slugs, :enum do
-              enum_method do
-                :slugs
+            group :URL do
+              active false
+              field :slugs, :enum do
+                enum_method do
+                  :slugs
+                end
+                visible do
+                  bindings[:view].current_user.admin?
+                end
+                multiple do
+                  true
+                end
               end
-              visible do
-                bindings[:view].current_user.admin?
-              end
-              multiple do
-                true
-              end
+              field :text_slug
             end
-            field :text_slug
 
             group 'Данные вопроса' do
+              active false
               field :question_text, :text
               field :question_text_after_editing, :enjoy_html
               field :author_name, :string
@@ -39,6 +43,7 @@ module Enjoy::Faq
             end
 
             group 'Данные ответа' do
+              active false
               field :answered, :toggle
               field :answer_text, :enjoy_html
               field :answered_time

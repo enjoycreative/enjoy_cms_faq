@@ -29,25 +29,33 @@ module Enjoy::Faq
             field :enabled, :toggle
             field :name
             # field :sidebar_title, :string
-            field :slugs, :enum do
-              enum_method do
-                :slugs
+
+            group :URL do
+              active false
+              field :slugs, :enum do
+                enum_method do
+                  :slugs
+                end
+                visible do
+                  bindings[:view].current_user.admin?
+                end
+                multiple do
+                  true
+                end
               end
-              visible do
-                bindings[:view].current_user.admin?
-              end
-              multiple do
-                true
-              end
+              field :text_slug
             end
-            field :text_slug
             # field :image, :jcrop do
             #   jcrop_options do
             #     :image_jcrop_options
             #   end
             # end
-            field :excerpt, :enjoy_html
-            field :content, :enjoy_html
+
+            group :content do
+              active false
+              field :excerpt, :enjoy_html
+              field :content, :enjoy_html
+            end
 
             group :seo do
               active false
@@ -74,16 +82,20 @@ module Enjoy::Faq
               end
             end
 
-            field :questions do
-              read_only true
-              help 'Список вопросов'
 
-              pretty_value do
-                bindings[:object].questions.to_a.map { |q|
-                route = (bindings[:view] || bindings[:controller])
-                model_name = q.rails_admin_model
-                route.link_to(q.name, route.rails_admin.show_path(model_name: model_name, id: q.id), title: q.full_name)
-                }.join("<br>").html_safe
+            group :questions do
+              active false
+              field :questions do
+                read_only true
+                help 'Список вопросов'
+
+                pretty_value do
+                  bindings[:object].questions.to_a.map { |q|
+                  route = (bindings[:view] || bindings[:controller])
+                  model_name = q.rails_admin_model
+                  route.link_to(q.name, route.rails_admin.show_path(model_name: model_name, id: q.id), title: q.full_name)
+                  }.join("<br>").html_safe
+                end
               end
             end
           end
