@@ -19,8 +19,6 @@ module Enjoy
       attr_accessor :save_with_captcha
       attr_accessor :captcha_error_message
 
-      attr_accessor :routes_config
-
       def initialize
         @author_name_required = true
 
@@ -28,12 +26,6 @@ module Enjoy
 
         @save_with_captcha = true
         @captcha_error_message = "Код с картинки введен неверно"
-
-        @routes_config = {
-          use_questions_path: true,
-          use_question_categories_path: true,
-          use_faq_path: true
-        }
       end
     end
   end

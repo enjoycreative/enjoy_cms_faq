@@ -1,8 +1,9 @@
 require "enjoy/faq/version"
 
-require 'money-rails'
+require 'enjoy/faq/routes'
 
-require 'enjoy_cms_mongoid'
+require 'enjoy_cms'
+
 require 'rails_admin_sort_embedded'
 require 'rails_admin_jcrop'
 
