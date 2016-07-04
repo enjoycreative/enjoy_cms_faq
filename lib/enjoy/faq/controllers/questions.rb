@@ -29,7 +29,25 @@ module Enjoy::Faq
       def create
         @question = question_class.new(question_params)
 
-        _method = Enjoy::Faq.configuration.save_with_captcha ? :save_with_captcha : :save
+        if Enjoy::Faq.config.captcha
+          if Enjoy::Faq.config.recaptcha_support
+            if verify_recaptcha
+              meth = :save
+            else
+              meth = :valid?
+              @recaptcha_error = I18n.t('enjoy.errors.faq.recaptcha')
+            end
+
+          elsif Enjoy::Faq.config.simple_captcha_support
+            meth = :save_with_captcha
+
+          else
+            meth = :save
+          end
+        else
+          meth = :save
+        end
+
         if @question.send(_method)
           @message = "Успешно создано все"
         else
@@ -43,11 +61,11 @@ module Enjoy::Faq
 
       private
       def question_params
-        params[:question].permit(:question_text, :author_name, :author_email, :captcha, :captcha_key)
+        params[:enjoy_faq_question].permit(:question_text, :author_name, :author_email, :captcha, :captcha_key)
       end
 
-      def question_category_class
-        Enjoy::Faq::QuestionCategory
+      def category_class
+        Enjoy::Faq::Category
       end
       def question_class
         Enjoy::Faq::Question

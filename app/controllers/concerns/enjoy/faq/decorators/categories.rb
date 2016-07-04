@@ -1,5 +1,5 @@
 module Enjoy::Faq::Decorators
-  module QuestionCategory
+  module Categories
     extend ActiveSupport::Concern
   end
 end

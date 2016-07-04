@@ -1,15 +1,17 @@
 module Enjoy::Faq
   module Models
-    module QuestionCategory
+    module Category
       extend ActiveSupport::Concern
       include Enjoy::Model
-
       include Enjoy::Enableable
-      include Enjoy::Seoable
-      include Enjoy::SitemapDataField
+
+      if Enjoy::Faq.config.seo_support
+        include Enjoy::Seo::Seoable
+        include Enjoy::Seo::SitemapDataField
+      end
       include ManualSlug
 
-      include Enjoy::Faq.orm_specific('QuestionCategory')
+      include Enjoy::Faq.orm_specific('Category')
 
       included do
         manual_slug :name

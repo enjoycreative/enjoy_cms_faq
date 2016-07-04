@@ -1,7 +1,7 @@
 .qtable
-  - _question_category = q.question_category
-  -  if _question_category
-    = link_to _question_category.name, _question_category, title: _question_category.name
+  - _category = q.category
+  -  if _category
+    = link_to _category.name, _category, title: _category.name
 
   .qtext_block
     .questionblock

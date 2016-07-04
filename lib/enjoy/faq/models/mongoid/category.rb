@@ -1,23 +1,20 @@
 module Enjoy::Faq
   module Models
     module Mongoid
-      module QuestionCategory
+      module Category
         extend ActiveSupport::Concern
 
         include Enjoy::HtmlField
 
         included do
-          if defined?(RailsAdminComments)
-            include RailsAdminComments::Commentable
-          end
-          
-          field :name,          type: String, localize: Enjoy.configuration.localize
+
+          field :name,          type: String, localize: Enjoy::Faq.configuration.localize
 
           acts_as_nested_set
           scope :sorted, -> { order_by([:lft, :asc]) }
 
-          enjoy_cms_html_field :excerpt,   type: String, localize: Enjoy.configuration.localize, default: ""
-          enjoy_cms_html_field :content,   type: String, localize: Enjoy.configuration.localize, default: ""
+          enjoy_cms_html_field :excerpt,   type: String, localize: Enjoy::Faq.configuration.localize, default: ""
+          enjoy_cms_html_field :content,   type: String, localize: Enjoy::Faq.configuration.localize, default: ""
         end
 
         def questions

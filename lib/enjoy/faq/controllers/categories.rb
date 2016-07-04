@@ -1,40 +1,40 @@
 module Enjoy::Faq
   module Controllers
-    module QuestionCategories
+    module Categories
       extend ActiveSupport::Concern
 
       def index
-        @question_categories = question_category_class.enabled.sorted.to_a
-        @root_categories = question_category_class.enabled.roots.sorted.all.to_a
+        @categories = category_class.enabled.sorted.to_a
+        @root_categories = category_class.enabled.roots.sorted.all.to_a
         # index_crumbs
       end
 
       def show
-        @question_category = question_category_class.enabled.find(params[:id])
-        if !@question_category.text_slug.blank? and @question_category.text_slug != params[:id]
-          redirect_to @question_category, status_code: 301
+        @category = category_class.enabled.find(params[:id])
+        if !@category.text_slug.blank? and @category.text_slug != params[:id]
+          redirect_to @category, status_code: 301
           return
         end
         @seo_parent_page = find_seo_page(question_categories_path)
 
-        @children = @question_category.children.enabled.sorted.all.to_a
-        @questions = @question_category.questions.enabled.sorted.all.to_a
+        @children = @category.children.enabled.sorted.all.to_a
+        @questions = @category.questions.enabled.sorted.all.to_a
 
         # index_crumbs
         # category_crumbs
       end
 
       def page_title
-        if @question_category
-          @question_category.page_title
+        if @category
+          @category.page_title
         else
           super
         end
       end
 
       private
-      def question_category_class
-        Enjoy::Faq::QuestionCategory
+      def category_class
+        Enjoy::Faq::Category
       end
       def question_class
         Enjoy::Faq::Question

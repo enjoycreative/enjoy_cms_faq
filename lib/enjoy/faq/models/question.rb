@@ -5,8 +5,10 @@ module Enjoy::Faq
       include Enjoy::Model
       include Enjoy::Enableable
 
-      include Enjoy::Seoable
-      include Enjoy::SitemapDataField
+      if Enjoy::Faq.config.seo_support
+        include Enjoy::Seo::Seoable
+        include Enjoy::Seo::SitemapDataField
+      end
       include ManualSlug
 
       include Enjoy::Faq.orm_specific('Question')
@@ -14,7 +16,10 @@ module Enjoy::Faq
       included do
         manual_slug :full_name
 
-        apply_simple_captcha message: Enjoy::Faq.configuration.captcha_error_message
+        if Enjoy::Faq.config.simple_captcha_support
+          include SimpleCaptcha::ModelHelpers
+          apply_simple_captcha message: Enjoy::Faq.configuration.captcha_error_message
+        end
 
         validates_email_format_of :author_email
         if Enjoy::Faq.config.author_name_required
@@ -31,8 +36,8 @@ module Enjoy::Faq
         "#{self.author_name_output}: \"#{self.question_text_output}\""
       end
 
-      def question_category_class
-        Enjoy::Faq::QuestionCategory
+      def category_class
+        Enjoy::Faq::Category
       end
 
     end

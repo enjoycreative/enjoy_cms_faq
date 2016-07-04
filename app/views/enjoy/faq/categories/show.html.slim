@@ -1,3 +1,3 @@
-h1= @question_category.name
+h1= @category.name
 - @questions.each do |q|
   = link_to q.name, q, title: q.name

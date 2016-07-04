@@ -1,0 +1,39 @@
+ru:
+  enjoy:
+    faq: FAQ
+    breadcrumbs:
+      faq: FAQ
+    errors:
+      faq:
+        recaptcha: Вы робот?
+
+  mongoid:
+    models:
+      enjoy/faq/question: Вопросы
+      enjoy/faq/category: Категории
+    attributes:
+      enjoy/faq/question:
+        question_text: Текст вопроса
+        question_text_after_editing: Текст вопроса (редактированный)
+        author_name: Имя автора
+        author_name_after_editing: Имя автора (редактированное)
+        author_email: E-mail автора
+
+        answered: Есть ответ
+        answer_text: Текст ответа
+        answered_time: Время ответа
+        answer_author_name: Имя автора ответа
+
+        categories: Категории
+        category_ids: Категории
+
+      enjoy/faq/category:
+        questions: Вопросы
+
+
+    errors:
+      models:
+        enjoy/faq/question:
+          attributes:
+            author_email:
+              invalid_email_address: "Некорректный e-mail"

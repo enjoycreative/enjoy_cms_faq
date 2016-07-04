@@ -2,11 +2,6 @@ require "enjoy/faq/version"
 
 require 'enjoy/faq/routes'
 
-require 'enjoy_cms'
-
-require 'rails_admin_sort_embedded'
-require 'rails_admin_jcrop'
-
 require 'enjoy/faq/configuration'
 require 'enjoy/faq/engine'
 
@@ -23,7 +18,7 @@ module Enjoy
         Enjoy::Faq.orm == :active_record
       end
       def model_namespace
-        "Enjoy::Faq::Models::#{Enjoy::Catalog.orm.to_s.camelize}"
+        "Enjoy::Faq::Models::#{Enjoy::Faq.orm.to_s.camelize}"
       end
       def orm_specific(name)
         "#{model_namespace}::#{name}".constantize
@@ -33,22 +28,22 @@ module Enjoy
     autoload :Admin,  'enjoy/faq/admin'
     module Admin
       autoload :Question,               'enjoy/faq/admin/question'
-      autoload :QuestionCategory,       'enjoy/faq/admin/question_category'
+      autoload :Category,               'enjoy/faq/admin/category'
     end
 
     module Models
       autoload :Question,               'enjoy/faq/models/question'
-      autoload :QuestionCategory,       'enjoy/faq/models/question_category'
+      autoload :Category,               'enjoy/faq/models/category'
 
       module Mongoid
         autoload :Question,               'enjoy/faq/models/mongoid/question'
-        autoload :QuestionCategory,       'enjoy/faq/models/mongoid/question_category'
+        autoload :Category,               'enjoy/faq/models/mongoid/category'
       end
     end
 
     module Controllers
       autoload :Questions,                'enjoy/faq/controllers/questions'
-      autoload :QuestionCategories,       'enjoy/faq/controllers/question_categories'
+      autoload :Categories,               'enjoy/faq/controllers/categories'
     end
   end
 end

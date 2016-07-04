@@ -1,6 +1,6 @@
 - @question ||= Enjoy::Faq::Question.new
 - if @question.new_record?
-  = simple_form_for @question, url: enjoy_questions_path do |f|
+  = simple_form_for @question, url: enjoy_faq_questions_path do |f|
     - unless @message.blank?
       h3= @message
     .inputtextblock_q

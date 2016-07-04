@@ -1,6 +1,6 @@
 module Enjoy::Faq
   module Admin
-    module QuestionCategory
+    module Category
       def self.config(fields = {})
         Proc.new {
           navigation_label "FAQ"

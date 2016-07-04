@@ -7,23 +7,19 @@ module Enjoy::Faq
         include Enjoy::HtmlField
 
         included do
-          if defined?(RailsAdminComments)
-            include RailsAdminComments::Commentable
-          end
 
           field :question_text
-          enjoy_cms_html_field :question_text_after_editing, localize: Enjoy.configuration.localize
+          enjoy_cms_html_field :question_text_after_editing, localize: Enjoy::Faq.configuration.localize
           field :author_name
-          field :author_name_text_after_editing, localize: Enjoy.configuration.localize
+          field :author_name_text_after_editing, localize: Enjoy::Faq.configuration.localize
           field :author_email
 
           field :answered, type: Boolean, default: false
-          enjoy_cms_html_field :answer_text, localize: Enjoy.configuration.localize
+          enjoy_cms_html_field :answer_text, localize: Enjoy::Faq.configuration.localize
           field :answered_time, type: Time
           field :answer_author_name, default: Enjoy::Faq.configuration.default_answer_author_name
 
-          has_and_belongs_to_many :question_categories, class_name: "Enjoy::Faq::QuestionCategory", inverse_of: nil
-          alias :categories :question_categories
+          has_and_belongs_to_many :categories, class_name: "Enjoy::Faq::Category", inverse_of: nil
 
           acts_as_nested_set
           scope :sorted, -> { order_by([:lft, :asc]) }
@@ -37,8 +33,8 @@ module Enjoy::Faq
           scope :recent, ->(count = 5) { enabled.after_now.by_date.limit(count) }
         end
 
-        def question_category
-          self.question_categories.enabled.sorted.first
+        def category
+          self.categories.enabled.sorted.first
         end
 
         def question_text_output

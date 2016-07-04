@@ -9,12 +9,12 @@ module Enjoy::Faq
             scopes [:by_date, :by_answered_date, :answered, :not_answered, :enabled, nil]
 
             field :enabled, :toggle
-            field :question_categories
+            field :categories
             field :full_name
           end
 
           edit do
-            field :question_categories
+            field :categories
             field :enabled, :toggle
 
             group :URL do

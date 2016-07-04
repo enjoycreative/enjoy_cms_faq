@@ -1,0 +1,6 @@
+- @categories.each do |c|
+  p= link_to c.name, c, title: c.name
+
+.newquestionform
+  p.newquestiontitle Задать свой вопрос:
+  = render partial: "enjoy/faq/questions/form_with_wrapper"
