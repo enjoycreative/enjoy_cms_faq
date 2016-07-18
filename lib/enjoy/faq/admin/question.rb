@@ -19,17 +19,7 @@ module Enjoy::Faq
 
             group :URL do
               active false
-              field :slugs, :enum do
-                enum_method do
-                  :slugs
-                end
-                visible do
-                  bindings[:view].current_user.admin?
-                end
-                multiple do
-                  true
-                end
-              end
+              field :slugs, :enjoy_slugs
               field :text_slug
             end
 

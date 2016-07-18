@@ -32,24 +32,10 @@ module Enjoy::Faq
 
             group :URL do
               active false
-              field :slugs, :enum do
-                enum_method do
-                  :slugs
-                end
-                visible do
-                  bindings[:view].current_user.admin?
-                end
-                multiple do
-                  true
-                end
-              end
+              field :slugs, :enjoy_slugs
               field :text_slug
             end
-            # field :image, :jcrop do
-            #   jcrop_options do
-            #     :image_jcrop_options
-            #   end
-            # end
+            # field :image, :enjoy_image
 
             group :content do
               active false
@@ -103,17 +89,7 @@ module Enjoy::Faq
           show do
             field :name
             # field :sidebar_title
-            field :slugs, :enum do
-              enum_method do
-                :slugs
-              end
-              visible do
-                bindings[:view].current_user.admin?
-              end
-              multiple do
-                true
-              end
-            end
+            field :slugs, :enjoy_slugs
             field :text_slug
             field :enabled
             # field :image
