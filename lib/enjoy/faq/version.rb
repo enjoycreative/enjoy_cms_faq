@@ -1,5 +1,5 @@
 module Enjoy
   module Faq
-    VERSION = "0.4.0.1"
+    VERSION = "0.4.1"
   end
 end
